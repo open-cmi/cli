@@ -13,6 +13,7 @@ go run main.go
 ## how to build
 
 ```go
+go build -o prompt-cli main.go
 
 ```
 
