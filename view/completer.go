@@ -179,8 +179,11 @@ func (v *View) GetSuggests(input string) (suggests []prompt.Suggest) {
 			// 3. iterator 中元素少，返回提示信息，此命令列表终结
 
 			match, prompts := v.getSuggestsFromGroup(iterator, &group)
-			// option 未匹配时，进入下一个分组匹配
-			if group.Type != "option" && !match {
+			// 未匹配时，require 进入下一个命令行匹配，option 进入下一组匹配
+			if !match {
+				if group.Type == "option" {
+					continue
+				}
 				break
 			}
 
@@ -192,9 +195,9 @@ func (v *View) GetSuggests(input string) (suggests []prompt.Suggest) {
 			if groupIndex == len(commandlist.CommandWordGroups)-1 {
 				addEndPrompt = true
 			}
-			// 当当前组为最后一个组或者最后一个require 时，则提示<cr>
+			// 当当前组为最后一个组或者最后一个require 时，且命令行已经跑完的情况下, 提示<cr>
 			for gi := groupIndex + 1; gi < len(commandlist.CommandWordGroups); gi++ {
-				if commandlist.CommandWordGroups[gi].Type == "require" {
+				if commandlist.CommandWordGroups[gi].Type == "require" && iterator.Last() {
 					addEndPrompt = false
 				}
 			}
