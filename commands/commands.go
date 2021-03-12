@@ -20,7 +20,7 @@ func DefaultValidFunc(valuetype string, input string, strict bool) bool {
 	}
 
 	if valuetype == "int" || valuetype == "integer" {
-		_, err := strconv.Atoi(input)
+		_, err := strconv.ParseInt(input, 0, 64)
 		if err == nil {
 			return true
 		}
@@ -38,8 +38,8 @@ func DefaultSourceParserFunc(valuetype string, input string) (value interface{},
 	}
 
 	if valuetype == "int" || valuetype == "integer" {
-		value, err := strconv.Atoi(input)
-		return value, err
+		value, err := strconv.ParseInt(input, 0, 64)
+		return int(value), err
 	}
 	return "", errors.New("value type error")
 }
