@@ -171,7 +171,7 @@ func (v *View) GetSuggests(input string) (suggests []prompt.Suggest) {
 	iterator := commands.NewCommandIterator(input)
 	for _, commandlist := range v.CommandLists {
 		iterator.Reset()
-		addEndPrompt := true
+		addEndPrompt := false
 		for groupIndex, group := range commandlist.CommandWordGroups {
 			// 匹配 group 有三种情况
 			// 1. 不匹配，则下一个 command list
@@ -195,12 +195,19 @@ func (v *View) GetSuggests(input string) (suggests []prompt.Suggest) {
 			if groupIndex == len(commandlist.CommandWordGroups)-1 {
 				addEndPrompt = true
 			}
+			
 			// 当当前组为最后一个组或者最后一个require 时，且命令行已经跑完的情况下, 提示<cr>
+			lstRequire := true
 			for gi := groupIndex + 1; gi < len(commandlist.CommandWordGroups); gi++ {
-				if commandlist.CommandWordGroups[gi].Type == "require" && iterator.Last() {
-					addEndPrompt = false
+				if commandlist.CommandWordGroups[gi].Type == "require" {
+					lstRequire = false
 				}
 			}
+			
+			if lstRequire && !iterator.HasVisualCharactor() {
+				addEndPrompt = true
+			}
+			
 			if addEndPrompt {
 				MergeSuggests(&suggests, []prompt.Suggest{EndPrompt})
 			}

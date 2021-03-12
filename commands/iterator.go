@@ -69,6 +69,16 @@ func (ci *CommandIterator) Last() bool {
 	return false
 }
 
+// Last whether it is last element
+func (ci *CommandIterator) HasVisualCharactor() bool {
+	for i := ci.curpos+1; i <= ci.len-1; i++ {
+		if strings.Trim(ci.CommandKeywords[i], " ") != "" {
+			return true
+		}
+	}
+	return false
+}
+
 // Next 命令获取下一个
 func (ci *CommandIterator) Next() (command string, err error) {
 
