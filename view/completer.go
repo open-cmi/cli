@@ -189,13 +189,19 @@ func (v *View) GetSuggests(input string) (suggests []prompt.Suggest) {
 
 			if len(prompts) != 0 {
 				MergeSuggests(&suggests, prompts)
-				break
+
+				if commandlist.CommandWordGroups[groupIndex].Type == "option" {
+					// 当前组匹配了，但是当前组是 option，再继续匹配下一个组
+					continue
+				} else {
+					break
+				}
 			}
 
 			if groupIndex == len(commandlist.CommandWordGroups)-1 {
 				addEndPrompt = true
 			}
-			
+
 			// 当当前组为最后一个组或者最后一个require 时，且命令行已经跑完的情况下, 提示<cr>
 			lstRequire := true
 			for gi := groupIndex + 1; gi < len(commandlist.CommandWordGroups); gi++ {
@@ -203,11 +209,11 @@ func (v *View) GetSuggests(input string) (suggests []prompt.Suggest) {
 					lstRequire = false
 				}
 			}
-			
+
 			if lstRequire && !iterator.HasVisualCharactor() {
 				addEndPrompt = true
 			}
-			
+
 			if addEndPrompt {
 				MergeSuggests(&suggests, []prompt.Suggest{EndPrompt})
 			}
