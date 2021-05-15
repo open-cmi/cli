@@ -27,7 +27,7 @@ var ResetCommandDef CommandWordDef = CommandWordDef{
 
 // DebugCommandDef debug command define
 var DebugCommandDef CommandWordDef = CommandWordDef{
-	Name:   "debug",
-	Helper: "debug operation",
+	Name:   "debugging",
+	Helper: "debugging operation",
 	Type:   "name",
 }
