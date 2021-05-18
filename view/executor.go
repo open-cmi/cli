@@ -159,7 +159,7 @@ func Executor(commandLine string) {
 
 	err := cur.ExecCommnadLine(cmdline)
 	if err != nil {
-		fmt.Printf("exec command line failed: ---%s---, err %s\n", cmdline, err.Error())
+		fmt.Printf("exec command line failed: ---%d***, err %s\n", []byte(cmdline), err.Error())
 	}
 
 	return
