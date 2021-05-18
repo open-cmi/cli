@@ -147,7 +147,7 @@ func (v *View) ExecCommnadLine(command string) (err error) {
 
 // Executor 输入命令后，执行
 func Executor(commandLine string) {
-	cmdline := strings.Trim(commandLine, " ")
+	cmdline := strings.Trim(commandLine, " \n\t")
 	if cmdline == "" {
 		return
 	}
