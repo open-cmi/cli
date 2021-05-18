@@ -159,7 +159,7 @@ func Executor(commandLine string) {
 
 	err := cur.ExecCommnadLine(cmdline)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println(cmdline, err.Error())
 	}
 
 	return
