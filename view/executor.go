@@ -147,7 +147,7 @@ func (v *View) ExecCommnadLine(command string) (err error) {
 
 // Executor 输入命令后，执行
 func Executor(commandLine string) {
-	cmdline := strings.Trim(commandLine, " \n\t")
+	cmdline := strings.Trim(commandLine, " \r\n\t")
 	if cmdline == "" {
 		return
 	}
@@ -159,7 +159,7 @@ func Executor(commandLine string) {
 
 	err := cur.ExecCommnadLine(cmdline)
 	if err != nil {
-		fmt.Printf("exec command line failed: ---%d***, err %s\n", []byte(cmdline), err.Error())
+		fmt.Printf("exec command line failed, err %s\n", err.Error())
 	}
 
 	return

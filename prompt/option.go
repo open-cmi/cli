@@ -298,7 +298,7 @@ func New(executor Executor, completer Completer, opts ...Option) *Prompt {
 		executor:    executor,
 		history:     NewHistory(),
 		completion:  NewCompletionManager(completer, 6),
-		keyBindMode: EmacsKeyBind, // All the above assume that bash is running in the default Emacs setting
+		keyBindMode: CommonKeyBind, // All the above assume that bash is running in the default Emacs setting
 	}
 
 	for _, opt := range opts {
