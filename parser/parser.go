@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/open-cmi/prompt-cli/commands"
+	"github.com/open-cmi/cli/commands"
 )
 
 // TokenGroup token group

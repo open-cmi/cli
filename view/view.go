@@ -4,9 +4,9 @@ import (
 	"errors"
 	"os"
 
-	"github.com/open-cmi/prompt-cli/commands"
-	"github.com/open-cmi/prompt-cli/parser"
-	"github.com/open-cmi/prompt-cli/prompt"
+	"github.com/open-cmi/cli/commands"
+	"github.com/open-cmi/cli/parser"
+	"github.com/open-cmi/cli/prompt"
 )
 
 // Prompt terminal prompt

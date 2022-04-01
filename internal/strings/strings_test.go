@@ -3,7 +3,7 @@ package strings_test
 import (
 	"fmt"
 
-	"github.com/open-cmi/prompt-cli/internal/strings"
+	"github.com/open-cmi/cli/internal/strings"
 )
 
 func ExampleIndexNotByte() {

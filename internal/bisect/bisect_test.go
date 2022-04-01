@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/open-cmi/prompt-cli/internal/bisect"
+	"github.com/open-cmi/cli/internal/bisect"
 )
 
 func Example() {

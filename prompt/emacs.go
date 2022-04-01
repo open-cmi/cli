@@ -1,6 +1,6 @@
 package prompt
 
-import "github.com/open-cmi/prompt-cli/internal/debug"
+import "github.com/open-cmi/cli/internal/debug"
 
 /*
 

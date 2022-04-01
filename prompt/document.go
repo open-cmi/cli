@@ -4,8 +4,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/open-cmi/prompt-cli/internal/bisect"
-	istrings "github.com/open-cmi/prompt-cli/internal/strings"
+	"github.com/open-cmi/cli/internal/bisect"
+	istrings "github.com/open-cmi/cli/internal/strings"
 
 	runewidth "github.com/mattn/go-runewidth"
 )

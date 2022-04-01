@@ -1,6 +1,6 @@
-module github.com/open-cmi/prompt-cli
+module github.com/open-cmi/cli
 
-go 1.14
+go 1.17
 
 require (
 	github.com/mattn/go-colorable v0.1.7
@@ -9,3 +9,5 @@ require (
 	github.com/pkg/term v1.1.0
 	golang.org/x/sys v0.0.0-20200918174421-af09f7315aff
 )
+
+require github.com/mattn/go-isatty v0.0.12 // indirect

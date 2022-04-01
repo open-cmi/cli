@@ -3,7 +3,7 @@ package prompt
 import (
 	"runtime"
 
-	"github.com/open-cmi/prompt-cli/internal/debug"
+	"github.com/open-cmi/cli/internal/debug"
 
 	runewidth "github.com/mattn/go-runewidth"
 )

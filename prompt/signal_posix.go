@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package prompt
@@ -7,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/open-cmi/prompt-cli/internal/debug"
+	"github.com/open-cmi/cli/internal/debug"
 )
 
 func (p *Prompt) handleSignals(exitCh chan int, winSizeCh chan *WinSize, stop chan struct{}) {

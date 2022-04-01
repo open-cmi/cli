@@ -3,7 +3,7 @@ package prompt
 import (
 	"strings"
 
-	"github.com/open-cmi/prompt-cli/internal/debug"
+	"github.com/open-cmi/cli/internal/debug"
 )
 
 // Buffer emulates the console buffer.

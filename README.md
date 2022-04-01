@@ -1,20 +1,15 @@
-# github.com/open-cmi/prompt-cli
+# github.com/open-cmi/cli
 
 ```
-command line interface
+command line interface 
 ```
 
 ## how to use
 
-```go
-go run main.go
 ```
-
-## how to build
-
-```go
-go build -o prompt-cli main.go
-
+git clone https://github.com/open-cmi/cli.git
+cd cli/examples
+go run main.go
 ```
 
 ## Developers

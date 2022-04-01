@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	prompt "github.com/open-cmi/prompt-cli"
-	"github.com/open-cmi/prompt-cli/completer"
+	prompt "github.com/open-cmi/cli"
+	"github.com/open-cmi/cli/completer"
 )
 
 var filePathCompleter = completer.FilePathCompleter{

@@ -1,21 +1,14 @@
 package main
 
 import (
-	prompt "github.com/open-cmi/prompt-cli/prompt"
-	view "github.com/open-cmi/prompt-cli/view"
+	"github.com/open-cmi/cli"
 )
-
-var defaultPrefix = ">"
-var useSock bool = false
 
 func main() {
 
 	// view context
-	p := prompt.New(
-		view.Executor,
-		view.Completer,
-		prompt.OptionPrefix(defaultPrefix),
-		prompt.OptionTitle("prompt-cli"),
-	)
-	p.Run()
+	c := cli.New("cli")
+	c.AddDefaultView("sys", ">")
+	c.AppendView("sys", "service", ">")
+	c.Run()
 }

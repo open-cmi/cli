@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package prompt
@@ -5,7 +6,7 @@ package prompt
 import (
 	"syscall"
 
-	"github.com/open-cmi/prompt-cli/internal/term"
+	"github.com/open-cmi/cli/internal/term"
 
 	"golang.org/x/sys/unix"
 )

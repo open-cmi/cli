@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/open-cmi/prompt-cli/commands"
+	"github.com/open-cmi/cli/commands"
 )
 
 // MatchElem match elem

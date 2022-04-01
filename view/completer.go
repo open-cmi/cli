@@ -3,8 +3,8 @@ package view
 import (
 	"sort"
 
-	"github.com/open-cmi/prompt-cli/commands"
-	"github.com/open-cmi/prompt-cli/prompt"
+	"github.com/open-cmi/cli/commands"
+	"github.com/open-cmi/cli/prompt"
 )
 
 // EndPrompt end prompt

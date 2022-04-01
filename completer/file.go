@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"runtime"
 
-	prompt "github.com/open-cmi/prompt-cli"
-	"github.com/open-cmi/prompt-cli/internal/debug"
+	prompt "github.com/open-cmi/cli"
+	"github.com/open-cmi/cli/internal/debug"
 )
 
 var (

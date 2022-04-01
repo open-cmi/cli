@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package main
@@ -6,8 +7,8 @@ import (
 	"fmt"
 	"syscall"
 
-	prompt "github.com/open-cmi/prompt-cli"
-	"github.com/open-cmi/prompt-cli/internal/term"
+	prompt "github.com/open-cmi/cli"
+	"github.com/open-cmi/cli/internal/term"
 )
 
 func main() {

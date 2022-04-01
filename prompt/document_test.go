@@ -242,7 +242,7 @@ func TestDocument_DisplayCursorPosition(t *testing.T) {
 			// If you're facing test failure on this test case and your terminal is iTerm2,
 			// please check 'Profile -> Text' configuration. 'Use Unicode version 9 widths'
 			// must be checked.
-			// https://github.com/open-cmi/prompt-cli/pull/99
+			// https://github.com/open-cmi/cli/pull/99
 			document: &Document{
 				Text:           "Добрый день",
 				cursorPosition: 3,

@@ -4,7 +4,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/open-cmi/prompt-cli/container/stack"
+	"github.com/open-cmi/cli/container/stack"
 )
 
 // CommandIterator command iterator
@@ -71,7 +71,7 @@ func (ci *CommandIterator) Last() bool {
 
 // Last whether it is last element
 func (ci *CommandIterator) HasVisualCharactor() bool {
-	for i := ci.curpos+1; i <= ci.len-1; i++ {
+	for i := ci.curpos + 1; i <= ci.len-1; i++ {
 		if strings.Trim(ci.CommandKeywords[i], " ") != "" {
 			return true
 		}
