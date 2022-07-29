@@ -23,16 +23,20 @@ type ParseFunc func(ctx Context, cmddefs []commands.CommandWordDef) error
 
 type GetViewContextListFunc func() (ctxs []Context, err error)
 
+// ShowFunc show this
+type ShowViewFunc func(ctx Context) error
+
 // View 系统视图
 type View struct {
-	Name            string
-	DefaultViewText string
-	CommandLists    []commands.CommandList
-	ParserProcs     []ParseFunc
-	Ctx             Context
-	Parent          *View
-	Children        []*View
-	GetContextList  GetViewContextListFunc
+	Name              string
+	DefaultViewText   string
+	CommandLists      []commands.CommandList
+	ParserProcs       []ParseFunc
+	Ctx               Context
+	Parent            *View
+	Children          []*View
+	GetContextList    GetViewContextListFunc
+	ShowViewCallbacks []ShowViewFunc
 }
 
 // gViewMap view map
@@ -111,7 +115,16 @@ func SetCurrentView(name string, text string, data interface{}) (err error) {
 	return
 }
 
-func SetViewGetContextListFunc(name string, getList GetViewContextListFunc) error {
+func RegisterShowViewCallback(name string, callback ShowViewFunc) error {
+	view := gViewMap[name]
+	if view == nil {
+		return errors.New("view not exist")
+	}
+	view.ShowViewCallbacks = append(view.ShowViewCallbacks, callback)
+	return nil
+}
+
+func RegisterGetContextListFunc(name string, getList GetViewContextListFunc) error {
 	view := gViewMap[name]
 	if view == nil {
 		return errors.New("view not exist")
