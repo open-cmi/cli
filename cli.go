@@ -9,7 +9,7 @@ import (
 
 type CLI struct {
 	Prompt              *prompt.Prompt
-	DefaultView         string
+	DefaultViewName     string
 	DefaultPromptPrefix string
 }
 
@@ -18,27 +18,29 @@ func New(title string) *CLI {
 		view.Executor,
 		view.Completer,
 		prompt.OptionPrefix(">"),
-		prompt.OptionTitle("xsnos-cli"),
+		prompt.OptionTitle(title),
 	)
 	return &CLI{
 		Prompt: p,
 	}
 }
 
-func (c *CLI) AddDefaultView(name string, promptPrefix string) error {
-	// UserView 用户视图
+// NewDefaultView new default view
+func (c *CLI) NewDefaultView(name string, promptPrefix string) error {
+	// SystemView 系统视图
 	dv := view.GetView(name)
 	if dv != nil {
 		return errors.New("view exist")
 	}
-	if c.DefaultView != "" {
-		return errors.New("default view has been added")
+
+	if c.DefaultViewName != "" {
+		return errors.New("default view has been set")
 	}
 
-	user := view.NewView(name, promptPrefix)
-	c.DefaultView = name
+	sys := view.NewView(name, promptPrefix)
+	c.DefaultViewName = name
 	c.DefaultPromptPrefix = promptPrefix
-	return view.Register(user, nil)
+	return view.Register(sys, nil)
 }
 
 func (c *CLI) AppendView(parent string, name string, promptPrefix string) error {
@@ -54,6 +56,6 @@ func (c *CLI) AppendView(parent string, name string, promptPrefix string) error 
 
 func (c *CLI) Run() {
 	view.SetPrompt(c.Prompt)
-	view.SetCurrentView(c.DefaultView, c.DefaultPromptPrefix, nil)
+	view.SetCurrentView(c.DefaultViewName, c.DefaultPromptPrefix, nil)
 	c.Prompt.Run()
 }

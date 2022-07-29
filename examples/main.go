@@ -8,7 +8,7 @@ func main() {
 
 	// view context
 	c := cli.New("cli")
-	c.AddDefaultView("sys", ">")
+	c.NewDefaultView("sys", ">")
 	c.AppendView("sys", "service", ">")
 	c.Run()
 }

@@ -9,8 +9,8 @@ import (
 	"github.com/open-cmi/cli/prompt"
 )
 
-// Prompt terminal prompt
-var Prompt *prompt.Prompt
+// gPrompt terminal prompt
+var gPrompt *prompt.Prompt
 
 // Context view context
 type Context struct {
@@ -21,6 +21,8 @@ type Context struct {
 // ParseFunc parse func
 type ParseFunc func(ctx Context, cmddefs []commands.CommandWordDef) error
 
+type GetViewContextListFunc func() (ctxs []Context, err error)
+
 // View 系统视图
 type View struct {
 	Name            string
@@ -30,16 +32,16 @@ type View struct {
 	Ctx             Context
 	Parent          *View
 	Children        []*View
+	GetContextList  GetViewContextListFunc
 }
 
-// ViewMap view map
-var ViewMap map[string]*View
-var curViewName string
+// gViewMap view map
+var gViewMap map[string]*View
+var gCurViewName string
 
 // SetPrompt 设置prompt
 func SetPrompt(p *prompt.Prompt) {
-	Prompt = p
-	return
+	gPrompt = p
 }
 
 // Exit exit
@@ -49,7 +51,6 @@ func (v *View) Exit() {
 		return
 	}
 	SetCurrentView(v.Parent.Name, "", nil)
-	return
 }
 
 // RegisterCommandParser 视图下的注册
@@ -68,7 +69,7 @@ func (v *View) RegisterCommandParser(commandParser *parser.CommandParser, f Pars
 // RegisterCommandParser register commands to view
 func RegisterCommandParser(name string, commandParser *parser.CommandParser, f ParseFunc) (err error) {
 	if name == "all" {
-		for _, v := range ViewMap {
+		for _, v := range gViewMap {
 			p := *commandParser
 			err = v.RegisterCommandParser(&p, f)
 			if err != nil {
@@ -87,20 +88,21 @@ func RegisterCommandParser(name string, commandParser *parser.CommandParser, f P
 
 // GetCurrentView 获取当前view视图
 func GetCurrentView() (v *View) {
-	return ViewMap[curViewName]
+	return gViewMap[gCurViewName]
 }
 
 // SetCurrentView set view
 func SetCurrentView(name string, text string, data interface{}) (err error) {
-	curViewName = name
-	view := ViewMap[name]
+
+	view := gViewMap[name]
 	if view == nil {
 		return errors.New("view not exist")
 	}
+	gCurViewName = name
 	if text == "" {
-		Prompt.SetPrefix(view.DefaultViewText)
+		gPrompt.SetPrefix(view.DefaultViewText)
 	} else {
-		Prompt.SetPrefix(text)
+		gPrompt.SetPrefix(text)
 	}
 	view.Ctx = Context{
 		Name:  name,
@@ -109,15 +111,24 @@ func SetCurrentView(name string, text string, data interface{}) (err error) {
 	return
 }
 
+func SetViewGetContextListFunc(name string, getList GetViewContextListFunc) error {
+	view := gViewMap[name]
+	if view == nil {
+		return errors.New("view not exist")
+	}
+	view.GetContextList = getList
+	return nil
+}
+
 // GetView get view
 func GetView(name string) (v *View) {
-	return ViewMap[name]
+	return gViewMap[name]
 }
 
 // Register register view
 func Register(v *View, parent *View) (err error) {
-	if ViewMap[v.Name] == nil {
-		ViewMap[v.Name] = v
+	if gViewMap[v.Name] == nil {
+		gViewMap[v.Name] = v
 		v.Parent = parent
 		if parent != nil {
 			parent.Children = append(parent.Children, v)
@@ -141,6 +152,5 @@ func NewView(name string, prompt string) (v *View) {
 }
 
 func init() {
-	ViewMap = make(map[string]*View, 8)
-
+	gViewMap = make(map[string]*View)
 }
