@@ -49,6 +49,10 @@ func (v *View) MatchElem(iterator *commands.CommandIterator, elem *commands.Comm
 		}
 	}
 
+	for idx := 0; idx < len(elem.CommandWordDefs); idx++ {
+		worddef := &elem.CommandWordDefs[idx]
+		worddef.Value = worddef.DefaultValue
+	}
 	return
 }
 
@@ -142,6 +146,7 @@ func (v *View) ExecCommnadLine(command string) (err error) {
 			break
 		}
 	}
+
 	return
 }
 
