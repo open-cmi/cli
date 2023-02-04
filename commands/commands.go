@@ -52,6 +52,7 @@ type CommandWordDef struct {
 	Type         string           // 如果是 Name,就用助记符比较，如果是 Value，则用 Value 比较
 	ValueType    string           // 值类型, bool, integer, string
 	Value        interface{}      // 携带的值，初始值为默认值
+	DefaultValue interface{}      // 初始值为默认值
 	SourceParser SourceParserFunc // 源解析函数，通过输入
 	ValidFunc    ValidFunc        // 值校验函数
 }
@@ -61,6 +62,7 @@ func (cw *CommandWordDef) MatchCommandDefByValue(command string, strict bool) bo
 	var bMatch = false
 	// 不根据 name 比对，根据值比对，只要值合法，就可以返回该命令字
 
+	cw.Value = cw.DefaultValue
 	ValidFunc := cw.ValidFunc
 	if ValidFunc == nil {
 		ValidFunc = DefaultValidFunc
