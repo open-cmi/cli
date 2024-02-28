@@ -20,6 +20,8 @@ func New(title string) *CLI {
 		prompt.OptionPrefix(">"),
 		prompt.OptionTitle(title),
 	)
+
+	view.SetPrompt(p)
 	return &CLI{
 		Prompt: p,
 	}
@@ -55,7 +57,7 @@ func (c *CLI) AppendView(parent string, name string, promptPrefix string) error 
 }
 
 func (c *CLI) Run() {
-	view.SetPrompt(c.Prompt)
+
 	view.SetCurrentView(c.DefaultViewName, c.DefaultPromptPrefix, nil)
 	c.Prompt.Run()
 }
